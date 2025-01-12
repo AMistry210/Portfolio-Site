@@ -143,10 +143,11 @@ body.dark-mode nav a.active {
         border-left: 3px soild black;
         border-bottom: 3px soild black;
         border-bottom-left-radius: 2rem;
-        padding: 1rem solid;
+        padding: 1rem solid white;
         background-color: #161616;
         border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
     }
+
     nav.active{
         display: block;
     }
@@ -221,7 +222,20 @@ body.dark-mode #light {
 body.dark-mode #dark {
     display: block; 
 }
-  
+ 
+@media (min-aspect-ratio: 16/9) {
+    .home-vid video{
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .home-vid video{
+        width: auto;
+        height: 100;
+    }
+}
 
 .socialmedia a{
     display: inline-flex;

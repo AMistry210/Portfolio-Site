@@ -133,14 +133,27 @@ body.dark-mode nav a.active {
         top: 100%;
         right: 0;
         width: 40%;
-        border-left: 3px soild white;
-        border-bottom: 3px soild white;
+        border-left: 3px soild black;
+        border-bottom: 3px soild black;
         border-bottom-left-radius: 2rem;
         padding: 1rem solid;
+        background-color: white;
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode nav{
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 40%;
+        border-left: 3px soild black;
+        border-bottom: 3px soild black;
+        border-bottom-left-radius: 2rem;
+        padding: 1rem solid white;
         background-color: #161616;
         border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
-        display: none;
     }
+
     nav.active{
         display: block;
     }
@@ -155,8 +168,10 @@ body.dark-mode nav a.active {
     nav a.active{
         padding: 1rem;
         border-radius: 0.5rem;
-        border-bottom: 0.5rem solid white;
+        border-bottom: 0.5rem solid black;
     }
+
+
 }
 
 section{
@@ -194,6 +209,20 @@ body.dark-mode #light {
   
 body.dark-mode #dark {
     display: block; 
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .home-vid video{
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .home-vid video{
+        width: auto;
+        height: 100;
+    }
 }
   
 .carousel{
