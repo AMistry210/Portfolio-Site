@@ -79,14 +79,6 @@ header{
     z-index: 1;
 }
 
-.logo{
-    font-size: 3rem;
-    color: black;
-    font-weight: 800;
-    transition: 0.5 ease;
-    cursor: none;
-}
-
 body.dark-mode .logo {
     color: white;
 }
