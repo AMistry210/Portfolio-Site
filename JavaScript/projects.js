@@ -20,6 +20,27 @@ window.addEventListener("mousemove", function (e) {
     );
 });
 
+const textBoxes = document.querySelectorAll('.text-box');
+const followImage = document.querySelector('.follow-image');
+
+textBoxes.forEach((textBox) => {
+  textBox.addEventListener('mouseenter', () => {
+    const imageSrc = textBox.getAttribute('data-image');
+    followImage.src = imageSrc; // Set the image source
+    followImage.style.display = 'block'; // Show the image
+  });
+
+  textBox.addEventListener('mousemove', (event) => {
+    const { clientX, clientY } = event;
+    followImage.style.left = `${clientX + 10}px`; // Offset to the right of the cursor
+    followImage.style.top = `${clientY + 10}px`; // Offset below the cursor
+  });
+
+  textBox.addEventListener('mouseleave', () => {
+    followImage.style.display = 'none'; // Hide the image
+  });
+});
+
 // Dark mode
 document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('dark-mode-toggle');
