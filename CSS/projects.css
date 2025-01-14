@@ -178,14 +178,14 @@ body.dark-mode #dark {
 }
 
 .hover-container {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    max-width: 800px; 
-    width: 90%; 
-    height: 90%; 
-    overflow-y: auto; 
-    top: 500px;
-  }
+    width: 70%;
+    position: relative;
+    top: 250px;
+    left: 400px;
+}
   
   .text-box {
     margin: 20px 0;
@@ -196,8 +196,8 @@ body.dark-mode #dark {
     color: black;
     cursor: none;
     margin: 20px 0;
-    margin-top: 2px solid black;
-    margin-bottom: 2px solid black;
+    padding: 2.5em 1em;
+    border-bottom: 1px solid black;
   }
 
   body.dark-mode  .text-box p {
@@ -205,17 +205,19 @@ body.dark-mode #dark {
     color: white;
     cursor: none;
     margin: 20px 0;
+    border-bottom: 1px solid white;
   }
   
   .follow-image {
-    position: fixed; 
+    position: fixed;
     width: 100px;
     height: 100px;
     object-fit: cover;
-    display: none; 
-    pointer-events: none; 
-  }
-  
+    display: none;
+    pointer-events: none;
+    z-index: 10;
+}
+
   @media (max-width: 768px) {
     body {
       justify-content: flex-start;
@@ -226,6 +228,7 @@ body.dark-mode #dark {
       max-width: 100%;
       height: auto; 
       overflow-y: visible; 
+      left: 100px;
     }
   
     .text-box p {
