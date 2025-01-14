@@ -210,8 +210,8 @@ body.dark-mode #dark {
   
   .follow-image {
     position: fixed;
-    width: 100px;
-    height: 100px;
+    width: 300px;
+    height: 600px;
     object-fit: cover;
     display: none;
     pointer-events: none;
