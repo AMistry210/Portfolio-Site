@@ -6,11 +6,9 @@ window.addEventListener("mousemove", function (e) {
     const posX = e.clientX;
     const posY = e.clientY;
 
-    // Move the cursor dot directly
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
 
-    // Smoothly animate the cursor outline
     cursorOutline.animate(
         {
             left: `${posX}px`,
@@ -23,7 +21,7 @@ window.addEventListener("mousemove", function (e) {
 
 const textArray = [
     "Computer Science Graduate",
-    "Aspiring Developer",
+    "Web Developer",
     "Determined Coder",
     "Lifelong Learner",
     "3D Artist"
@@ -65,13 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('dark-mode-toggle');
     const body = document.body;
 
-    // Check if dark mode is enabled in localStorage
     if (localStorage.getItem('dark-mode') === 'enabled') {
         body.classList.add('dark-mode');
-        toggleButton.checked = true; // Ensure the toggle reflects the saved state
+        toggleButton.checked = true; 
     }
 
-    // Toggle dark mode on checkbox state change
     toggleButton.addEventListener('change', () => {
         if (toggleButton.checked) {
             body.classList.add('dark-mode');
