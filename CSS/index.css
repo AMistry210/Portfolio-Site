@@ -105,27 +105,15 @@ body.dark-mode nav a.active {
     border-bottom: 3px solid white;
 }
 
-@media(max-width:995px){
+@media(max-width:995px){                    
     nav{
-        position: absolute;
+        position: fixed;
         top: 100%;
         justify-content: center;
+        align-items: center;
         border-left: 3px soild black;
         border-bottom: 3px soild black;
         border-bottom-left-radius: 2rem;
-    }
-
-    body.dark-mode nav{
-        position: absolute;
-        top: 100%;
-        justify-content: center;
-        border-left: 3px soild black;
-        border-bottom: 3px soild black;
-        border-bottom-left-radius: 2rem;
-    }
-
-    nav.active{
-        display: block;
     }
     
     nav a{
