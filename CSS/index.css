@@ -141,12 +141,8 @@ section{
     align-items: center;
     gap: 8rem;
     position: relative;
-    left: 1250px;
+    left: 1150px;
     top: 300px;
-}
-
-.home-items{
-    left: 500px;
 }
 
 .home h1{
@@ -167,6 +163,12 @@ body.dark-mode span{
 .home h3{
     font-size: 4rem;
     font-weight: 700;
+}
+
+.text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 45%; /* Adjust this to your preference */
 }
 
 .home-vid video{
@@ -257,7 +259,6 @@ body.dark-mode .btn {
     border: 2px solid white;
     background-color: white;
 }
-
 
 .btn:hover{
     transform: scale3d(1.03);
