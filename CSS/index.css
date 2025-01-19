@@ -241,7 +241,6 @@ body.dark-mode .socialmedia a:hover {
 }
 
 .btn{
-    display: inline-block;
     padding: 1rem 2.8rem;
     background-color: black;
     border-radius: 4rem;
@@ -252,6 +251,7 @@ body.dark-mode .socialmedia a:hover {
     border: 2px solid black;
     transition: 0.3ease;
     cursor: none;
+    margin-left: -8px;
 }
 
 body.dark-mode .btn {
