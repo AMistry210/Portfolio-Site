@@ -110,9 +110,6 @@ body.dark-mode nav a.active {
         position: absolute;
         top: 100%;
         justify-content: center;
-        border-left: 3px soild black;
-        border-bottom: 3px soild black;
-        border-bottom-left-radius: 2rem;
     }
 
     nav.active{
