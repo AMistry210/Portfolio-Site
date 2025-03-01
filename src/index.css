@@ -12,6 +12,7 @@
 
 html{
     font-size: 62.5%;
+    overflow: hidden;
 }
 
 body{  
@@ -20,6 +21,16 @@ body{
     overflow-x: hidden;;
     color: black;
     cursor: none;
+    position: relative;
+}
+
+.webgl{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1;
+    pointer-events: none;
 }
 
 body.dark-mode{
@@ -143,6 +154,7 @@ section{
     position: relative;
     left: 1150px;
     top: 300px;
+    z-index: 2;
 }
 
 .home h1{
@@ -168,7 +180,7 @@ body.dark-mode span{
 .text {
     word-wrap: break-word;
     overflow-wrap: break-word;
-    max-width: 45%; /* Adjust this to your preference */
+    max-width: 45%; 
 }
 
 .home-vid video{
