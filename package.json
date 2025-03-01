@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/AMistry210/Portfolio-Site#readme",
   "dependencies": {
+    "three": "^0.174.0",
     "vite": "^6.2.0"
   },
   "devDependencies": {
