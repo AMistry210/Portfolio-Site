@@ -20,5 +20,8 @@
   "homepage": "https://github.com/AMistry210/Portfolio-Site#readme",
   "dependencies": {
     "vite": "^6.2.0"
+  },
+  "devDependencies": {
+    "vite-plugin-restart": "^0.4.2"
   }
 }
