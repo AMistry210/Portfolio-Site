@@ -3,13 +3,15 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { FirstPersonControls } from "three/examples/jsm/Addons.js";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes ={
     height: window.innerHeight,
     width: window.innerWidth
 }
+
+const zAxisFans = []
+const xAxisFans = []
 
 // Loaders
 const textureLoader = new THREE.TextureLoader()
@@ -107,6 +109,16 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                     })
                     child.material = material
 
+                    if(child.name.includes("Fan")){
+                        if(
+                            child.name.includes("Fan_0") || 
+                            child.name.includes("Fan_4")){
+                            zAxisFans.push(child)
+                        }else{
+                            xAxisFans.push(child)
+                        }
+                    }
+
                     if(child.material.map){
                         child.material.map.minFilter = THREE.LinearFilter
                     }            
@@ -167,6 +179,14 @@ const render = () =>{
     // console.log(camera.position)
     // console.log('000000000')
     // console.log(controls.target)
+
+    // Animate Fans
+    zAxisFans.forEach(fan=>{
+        fan.rotation.z += 0.01
+    })
+    xAxisFans.forEach(fan=>{
+        fan.rotation.x += 0.01
+    })
 
     renderer.render( scene, camera )
 
