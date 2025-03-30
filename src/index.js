@@ -132,18 +132,18 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera( 35, sizes.width / sizes.height, 0.1, 1000 )
+camera.position.set(8.110325720864921, 10.517816963030718, 22.16791218222685)
 
 const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
 renderer.setSize( sizes.width, sizes.height )
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-camera.position.z = 5
 
 // Orbit Controls
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true
 controls.dampingFactor = 0.05
 controls.update();
+controls.target.set(1.7741222200416225, 3.179075319518858, 0.29832601026598715)
 
 // Event Listeners
 window.addEventListener("resize", ()=>{
@@ -164,6 +164,10 @@ function animate() {}
 const render = () =>{
     controls.update()
   
+    // console.log(camera.position)
+    // console.log('000000000')
+    // console.log(controls.target)
+
     renderer.render( scene, camera )
 
     window.requestAnimationFrame(render)
