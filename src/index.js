@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { FirstPersonControls } from "three/examples/jsm/Addons.js";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes ={
@@ -10,6 +11,63 @@ const sizes ={
     width: window.innerWidth
 }
 
+// Loaders
+const textureLoader = new THREE.TextureLoader()
+
+// Model Loader
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath( '/draco/' );
+
+const loader = new GLTFLoader()
+loader.setDRACOLoader(dracoLoader)
+
+const textureMap = {
+    First: {
+        textures: "/textures/TextureSetOne.webp"
+    },
+    Second: {
+        textures: "/textures/TextureSetTwo.webp"
+    },
+    Third: {
+        textures: "/textures/TextureSetThree.webp"
+    },
+    Fourth: {
+        textures: "/textures/TextureSetFour.webp"
+    },
+    Fifth: {
+        textures: "/textures/TextureSetFive.webp"
+    },
+    Sixth: {
+        textures: "/textures/TextureSetSix.webp"
+    }
+}
+
+const loadedTextures = {
+    textures: {}
+}
+
+Object.entries(textureMap).forEach(([key, paths])=> {
+    const texture = textureLoader.load(paths.textures)
+    texture.flipY = false
+    texture.colorSpace = THREE.SRGBColorSpace
+    loadedTextures.textures[key] = texture
+})
+
+loader.load("/models/Room_Portfolio.glb", (glb) =>{
+    glb.scene.traverse((child) =>{
+        if(child.isMesh){
+            Object.keys(textureMap).forEach((key) =>{
+                if(child.name.includes(key)){
+                    const material = new THREE.MeshBasicMaterial({
+                        map: loadedTextures.textures[key]
+                    })
+                    child.material = material
+                }
+            })
+        }
+        scene.add(glb.scene)
+    })
+})
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height, 0.1, 1000 )
