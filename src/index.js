@@ -32,7 +32,6 @@ const environmentMap = new THREE.CubeTextureLoader()
 				'nz.webp'
 			] );
 
-
 const textureMap = {
     First: {
         textures: "/textures/TextureSetOne.webp"
@@ -140,11 +139,6 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 camera.position.z = 5
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 )
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
 // Orbit Controls
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.enableDamping = true
@@ -169,9 +163,6 @@ function animate() {}
 
 const render = () =>{
     controls.update()
-
-    cube.rotation.x += 0.01
-    cube.rotation.y += 0.01
   
     renderer.render( scene, camera )
 
