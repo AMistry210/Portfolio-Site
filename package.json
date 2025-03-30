@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/AMistry210/Portfolio-Site#readme",
   "dependencies": {
+    "gsap": "^3.12.7",
+    "sass": "^1.86.0",
     "three": "^0.174.0",
     "vite": "^6.2.0"
   },
