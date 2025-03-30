@@ -65,9 +65,42 @@ Object.entries(textureMap).forEach(([key, paths])=> {
     loadedTextures.textures[key] = texture
 })
 
+const videoElement = document.createElement("video")
+videoElement.src = "videos/Monitor_1.mp4"
+videoElement.loop = true
+videoElement.muted = true
+videoElement.playsInline = true
+videoElement.autoplay = true
+videoElement.play()
+
+const VideoTexture = new THREE.VideoTexture(videoElement)
+videoElement.colorSpace = THREE.SRGBColorSpace
+VideoTexture.flipY = false
+
+const videoElementTwo = document.createElement("video")
+videoElementTwo.src = "videos/Monitor_2.mp4"
+videoElementTwo.loop = true
+videoElementTwo.muted = true
+videoElementTwo.playsInline = true
+videoElementTwo.autoplay = true
+videoElementTwo.play()
+
+const VideoTextureTwo = new THREE.VideoTexture(videoElementTwo)
+videoElementTwo.colorSpace = THREE.SRGBColorSpace
+VideoTextureTwo.flipY = false
+
 loader.load("/models/Room_Portfolio.glb", (glb) =>{
     glb.scene.traverse((child) =>{
         if(child.isMesh){
+            if(child.name.includes("Screen")) {
+                child.material = new THREE.MeshBasicMaterial({
+                    map: VideoTexture
+                })
+            }else if(child.name.includes("Monitor")){
+                child.material = new THREE.MeshBasicMaterial({
+                    map: VideoTextureTwo
+                })
+            }
             Object.keys(textureMap).forEach((key) =>{
                 if(child.name.includes(key)){
                     const material = new THREE.MeshBasicMaterial({
@@ -90,9 +123,6 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                         specularIntensity: 1,
                         envMap: environmentMap,
                         envMapIntensity: 1,
-                        lightIntensity: 1,
-                        exposure: 1,
-
                     })
                 }
             })
