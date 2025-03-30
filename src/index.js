@@ -21,6 +21,18 @@ dracoLoader.setDecoderPath( '/draco/' );
 const loader = new GLTFLoader()
 loader.setDRACOLoader(dracoLoader)
 
+const environmentMap = new THREE.CubeTextureLoader()
+    .setPath( 'textures/cubeMaps/' )
+	.load( [
+				'px.webp',
+				'nx.webp',
+				'py.webp',
+				'ny.webp',
+				'pz.webp',
+				'nz.webp'
+			] );
+
+
 const textureMap = {
     First: {
         textures: "/textures/TextureSetOne.webp"
@@ -62,15 +74,35 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                         map: loadedTextures.textures[key]
                     })
                     child.material = material
+
+                    if(child.material.map){
+                        child.material.map.minFilter = THREE.LinearFilter
+                    }            
+                }
+                if(child.name.includes("Glass")){
+                    child.material = new THREE.MeshPhysicalMaterial({
+                        transmission: 1,
+                        opacity: 1,
+                        metalness: 0,
+                        roughness: 0,
+                        ior: 1.5,
+                        thickness: 0.01,
+                        specularIntensity: 1,
+                        envMap: environmentMap,
+                        envMapIntensity: 1,
+                        lightIntensity: 1,
+                        exposure: 1,
+
+                    })
                 }
             })
         }
-        scene.add(glb.scene)
     })
+    scene.add(glb.scene)
 })
 
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height, 0.1, 1000 )
+const camera = new THREE.PerspectiveCamera( 35, sizes.width / sizes.height, 0.1, 1000 )
 
 const renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
 renderer.setSize( sizes.width, sizes.height )
