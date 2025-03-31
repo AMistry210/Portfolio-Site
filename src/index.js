@@ -14,6 +14,12 @@ const zAxisFans = []
 const xAxisFans = []
 
 const raycasterObjects = []
+let currentIntersects = []
+
+const socialLinks = {
+    "Github": "https://github.com/AMistry210/",
+    "Linkedin": "https://www.linkedin.com/in/anand-mistry-0849b0270/"
+}
 
 const raycaster = new THREE.Raycaster()
 const pointer = new THREE.Vector2()
@@ -98,6 +104,22 @@ VideoTextureTwo.flipY = false
 window.addEventListener("mousemove", (e) =>{
     pointer.x = ( e.clientX / window.innerWidth ) * 2 - 1
 	pointer.y = - ( e.clientY / window.innerHeight ) * 2 + 1
+})
+
+window.addEventListener("click", (e) =>{
+    if(currentIntersects.length>0){
+        const object = currentIntersects[0].object
+
+        Object.entries(socialLinks).forEach(([key, url]) => {
+            if(object.name.includes(key)){
+                const newWindow = window.open()
+                newWindow.opener = null
+                newWindow.location = url
+                newWindow.target ="_blank"
+                newWindow.rel = "noopener noreferrer"
+            }
+        })
+    }
 })
 
 loader.load("/models/Room_Portfolio.glb", (glb) =>{
@@ -204,14 +226,18 @@ const render = () =>{
     // Raycaster
 	raycaster.setFromCamera( pointer, camera );
 
-	const intersects = raycaster.intersectObjects(raycasterObjects);
+	currentIntersects = raycaster.intersectObjects(raycasterObjects);
 
-	for ( let i = 0; i < intersects.length; i ++ ) {
-	    intersects[ i ].object.material.color.set( 0xff0000 );
+	for ( let i = 0; i < currentIntersects.length; i ++ ) {
 	}
 
-    if(intersects.length>0){
+    if(currentIntersects.length>0){
+        const currentIntersectsObject = currentIntersects[0].object
+    if(currentIntersectsObject.name.includes("Pointer")){
         document.body.style.cursor = "pointer"
+    }else{
+        document.body.style.cursor = "default"
+    }
     }else{
         document.body.style.cursor = "default"
     }
