@@ -191,9 +191,11 @@ function handleRaycasterInteraction(){
 
         if(object.name.includes("Projects_Button")) {
            showModal(modals.project)
-        } else if (object.name.includes("About_Button")){
+        } 
+        else if (object.name.includes("About_Button")){
             showModal(modals.about)
-        }else if (object.name.includes("Contact_Button")){
+        }
+        else if (object.name.includes("Contact_Button")){
             showModal(modals.contact)
         }
 
@@ -212,7 +214,8 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                 child.material = new THREE.MeshBasicMaterial({
                     map: VideoTexture
                 })
-            }else if(child.name.includes("Monitor")){
+            }
+            else if(child.name.includes("Monitor")){
                 child.material = new THREE.MeshBasicMaterial({
                     map: VideoTextureTwo
                 })
@@ -229,7 +232,8 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                             child.name.includes("Fan_0") || 
                             child.name.includes("Fan_4")){
                             zAxisFans.push(child)
-                        }else{
+                        }
+                        else{
                             xAxisFans.push(child)
                         }
                     }
@@ -299,6 +303,7 @@ const render = () =>{
     zAxisFans.forEach(fan=>{
         fan.rotation.z += 0.01
     })
+    
     xAxisFans.forEach(fan=>{
         fan.rotation.x += 0.01
     })
@@ -315,10 +320,12 @@ const render = () =>{
         const currentIntersectsObject = currentIntersects[0].object
     if(currentIntersectsObject.name.includes("Pointer")){
         document.body.style.cursor = "pointer"
-    }else{
+    }
+    else{
         document.body.style.cursor = "default"
     }
-    }else{
+    }
+    else{
         document.body.style.cursor = "default"
     }
 
