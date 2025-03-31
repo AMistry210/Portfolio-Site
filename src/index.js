@@ -76,6 +76,7 @@ const socialLinks = {
 
 const raycaster = new THREE.Raycaster()
 const pointer = new THREE.Vector2()
+let currentHoveredObject = null
 
 // Loaders
 const textureLoader = new THREE.TextureLoader()
@@ -216,6 +217,14 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
             if(child.name.includes("Raycaster")) {
                 raycasterObjects.push(child);
             }
+            if(child.name.includes("Hover")) {
+                child.userData.initialScale = new THREE.Vector3().copy(child.scale)
+                child.userData.initialPosition = new THREE.Vector3().copy(child.position)
+                child.userData.initialRotation = new THREE.Euler().copy(child.rotation)
+            }
+            if(child.name.includes("Hover_2")) {
+                raycasterObjects.push(child);
+            }
             if(child.name.includes("Screen")) {
                 child.material = new THREE.MeshBasicMaterial({
                     map: VideoTexture
@@ -296,7 +305,42 @@ window.addEventListener("resize", ()=>{
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
-function animate() {}
+function playHoverAnimation(object, isHovering){
+    gsap.killTweensOf(object.scale)
+    gsap.killTweensOf(object.rotation)
+    gsap.killTweensOf(object.position)
+
+    object.userData.isAnimating = true
+
+    if(isHovering){
+        gsap.to(object.scale,{
+            x: object.userData.initialScale.x * 1.2,
+            y: object.userData.initialScale.y * 1.2,
+            z: object.userData.initialScale.z * 1.2,
+            duration: 0.5,
+            ease: "bounce.out(1.8)"
+        })
+        gsap.to(object.rotation,{
+            x: object.userData.initialRotation.x * Math.PI / 8,
+            duration: 0.5,
+            ease: "bounce.out(1.8)",
+        })
+    }
+    else{
+        gsap.to(object.scale,{
+            x: object.userData.initialScale.x ,
+            y: object.userData.initialScale.y ,
+            z: object.userData.initialScale.z ,
+            duration: 0.3,
+            ease: "bounce.out(1.8)"
+        })
+        gsap.to(object.rotation,{
+            x: object.userData.initialRotation.x,
+            duration: 0.3,
+            ease: "bounce.out(1.8)",
+        })
+    }
+}
 
 const render = () =>{
     controls.update()
@@ -324,6 +368,19 @@ const render = () =>{
 
     if(currentIntersects.length>0){
         const currentIntersectsObject = currentIntersects[0].object
+
+    if(currentIntersectsObject.name.includes("Hover")){
+        if(currentIntersectsObject !== currentHoveredObject){
+
+        if(currentHoveredObject){
+            playHoverAnimation(currentHoveredObject, false)
+        }
+
+        playHoverAnimation(currentIntersectsObject, true)
+        currentHoveredObject = currentIntersectsObject
+        }
+    }
+
     if(currentIntersectsObject.name.includes("Pointer")){
         document.body.style.cursor = "pointer"
     }
@@ -332,6 +389,10 @@ const render = () =>{
     }
     }
     else{
+    if(currentHoveredObject){
+        playHoverAnimation(currentHoveredObject, false)
+        currentHoveredObject = null
+    }
         document.body.style.cursor = "default"
     }
 
