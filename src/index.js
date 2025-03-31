@@ -3,11 +3,47 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import gsap from "gsap";
+import { bufferAttribute } from "three/tsl";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes ={
     height: window.innerHeight,
     width: window.innerWidth
+}
+
+const modals = {
+    project: document.querySelector(".modal.project"),
+    about: document.querySelector(".modal.about"),
+    contact: document.querySelector(".modal.contact")
+}
+
+document.querySelectorAll(".modal-exit-button").forEach(button =>{
+    button.addEventListener("click", (e) =>{
+        const modal = e.target.closest(".modal")
+        hideModal(modal)
+    })
+})
+
+const showModal = (modal) => {
+    modal.style.display = "block"
+
+    gsap.set(modal, {opacity: 0})
+
+    gsap.to(modal, {
+        opacity: 1,
+        duration: 0.5,
+    })
+}
+
+const hideModal = (modal) => {
+    gsap.to(modal, {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () =>{
+            modal.style.display = "block"
+        }
+    })
 }
 
 const zAxisFans = []
@@ -119,6 +155,15 @@ window.addEventListener("click", (e) =>{
                 newWindow.rel = "noopener noreferrer"
             }
         })
+
+        if(object.name.includes("Projects_Button")) {
+           showModal(modals.project)
+        } else if (object.name.includes("About_Button")){
+            showModal(modals.about)
+        }else if (object.name.includes("Contact_Button")){
+            showModal(modals.contact)
+        }
+
     }
 })
 
