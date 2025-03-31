@@ -12,6 +12,7 @@ const sizes ={
     width: window.innerWidth
 }
 
+// Modals
 const modals = {
     project: document.querySelector(".modal.project"),
     about: document.querySelector(".modal.about"),
@@ -59,12 +60,15 @@ const hideModal = (modal) => {
     })
 }
 
+// Fans
 const zAxisFans = []
 const xAxisFans = []
 
 const raycasterObjects = []
 let currentIntersects = []
 
+
+// Social Media Links
 const socialLinks = {
     "Github": "https://github.com/AMistry210/",
     "Linkedin": "https://www.linkedin.com/in/anand-mistry-0849b0270/"
@@ -126,6 +130,7 @@ Object.entries(textureMap).forEach(([key, paths])=> {
     loadedTextures.textures[key] = texture
 })
 
+// Main Monitor Video
 const videoElement = document.createElement("video")
 videoElement.src = "videos/Monitor_1.mp4"
 videoElement.loop = true
@@ -138,6 +143,7 @@ const VideoTexture = new THREE.VideoTexture(videoElement)
 videoElement.colorSpace = THREE.SRGBColorSpace
 VideoTexture.flipY = false
 
+// Second Monitor Video
 const videoElementTwo = document.createElement("video")
 videoElementTwo.src = "videos/Monitor_2.mp4"
 videoElementTwo.loop = true
@@ -303,7 +309,7 @@ const render = () =>{
     zAxisFans.forEach(fan=>{
         fan.rotation.z += 0.01
     })
-    
+
     xAxisFans.forEach(fan=>{
         fan.rotation.x += 0.01
     })
