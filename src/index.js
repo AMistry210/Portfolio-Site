@@ -13,6 +13,11 @@ const sizes ={
 const zAxisFans = []
 const xAxisFans = []
 
+const raycasterObjects = []
+
+const raycaster = new THREE.Raycaster()
+const pointer = new THREE.Vector2()
+
 // Loaders
 const textureLoader = new THREE.TextureLoader()
 
@@ -90,9 +95,17 @@ const VideoTextureTwo = new THREE.VideoTexture(videoElementTwo)
 videoElementTwo.colorSpace = THREE.SRGBColorSpace
 VideoTextureTwo.flipY = false
 
+window.addEventListener("mousemove", (e) =>{
+    pointer.x = ( e.clientX / window.innerWidth ) * 2 - 1
+	pointer.y = - ( e.clientY / window.innerHeight ) * 2 + 1
+})
+
 loader.load("/models/Room_Portfolio.glb", (glb) =>{
     glb.scene.traverse((child) =>{
         if(child.isMesh){
+            if(child.name.includes("Raycaster")) {
+                raycasterObjects.push(child);
+            }
             if(child.name.includes("Screen")) {
                 child.material = new THREE.MeshBasicMaterial({
                     map: VideoTexture
@@ -187,6 +200,21 @@ const render = () =>{
     xAxisFans.forEach(fan=>{
         fan.rotation.x += 0.01
     })
+
+    // Raycaster
+	raycaster.setFromCamera( pointer, camera );
+
+	const intersects = raycaster.intersectObjects(raycasterObjects);
+
+	for ( let i = 0; i < intersects.length; i ++ ) {
+	    intersects[ i ].object.material.color.set( 0xff0000 );
+	}
+
+    if(intersects.length>0){
+        document.body.style.cursor = "pointer"
+    }else{
+        document.body.style.cursor = "default"
+    }
 
     renderer.render( scene, camera )
 
