@@ -310,7 +310,7 @@ controls.minAzimuthAngle = 0
 controls.maxAzimuthAngle = Math.PI / 2
 
 controls.minDistance = 5
-controls.maxDistance = 
+controls.maxDistance = 40
 
 controls.enableDamping = true
 controls.dampingFactor = 0.05
