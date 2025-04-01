@@ -4,7 +4,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import gsap from "gsap";
-import { bufferAttribute } from "three/tsl";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes ={
@@ -39,8 +38,20 @@ document.querySelectorAll(".modal-exit-button").forEach(button =>{
     }, {passive:false})
 })
 
+let isModalOpen = false
+
 const showModal = (modal) => {
     modal.style.display = "block"
+    isModalOpen = true
+    controls.enabled = false
+
+    if(currentHoveredObject){
+        playHoverAnimation(currentHoveredObject, false)
+        currentHoveredObject = null
+    }
+
+    document.body.style.cursor = "default"
+    currentIntersects = []
 
     gsap.set(modal, {opacity: 0})
 
@@ -51,11 +62,13 @@ const showModal = (modal) => {
 }
 
 const hideModal = (modal) => {
+    isModalOpen = false
+    controls.enabled = true
     gsap.to(modal, {
         opacity: 0,
         duration: 0.5,
         onComplete: () =>{
-            modal.style.display = "block"
+            modal.style.display = "none"
         }
     })
 }
@@ -166,6 +179,8 @@ window.addEventListener("mousemove", (e) =>{
 window.addEventListener(
     "touchstart", 
     (e) => {
+    if(isModalOpen)
+        return
     e.preventDefault()
     pointer.x = ( e.touches[0].clientX / window.innerWidth ) * 2 - 1
 	pointer.y = - ( e.touches[0].clientY / window.innerHeight ) * 2 + 1
@@ -176,6 +191,8 @@ window.addEventListener(
 window.addEventListener(
     "touchend", 
     (e) => {
+    if(isModalOpen)
+        return
     e.preventDefault()
     handleRaycasterInteraction()
     }, 
@@ -286,6 +303,15 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 // Orbit Controls
 const controls = new OrbitControls( camera, renderer.domElement );
+
+controls.minPolarAngle = 0
+controls.maxPolarAngle = Math.PI / 2
+controls.minAzimuthAngle = 0
+controls.maxAzimuthAngle = Math.PI / 2
+
+controls.minDistance = 5
+controls.maxDistance = 
+
 controls.enableDamping = true
 controls.dampingFactor = 0.05
 controls.update();
@@ -361,6 +387,8 @@ const render = () =>{
     // Raycaster
 	raycaster.setFromCamera( pointer, camera );
 
+    if(!isModalOpen){
+
 	currentIntersects = raycaster.intersectObjects(raycasterObjects);
 
 	for ( let i = 0; i < currentIntersects.length; i ++ ) {
@@ -395,6 +423,7 @@ const render = () =>{
     }
         document.body.style.cursor = "default"
     }
+}
 
     renderer.render( scene, camera )
 
