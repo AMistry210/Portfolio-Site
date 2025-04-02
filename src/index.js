@@ -170,6 +170,21 @@ const VideoTextureTwo = new THREE.VideoTexture(videoElementTwo)
 videoElementTwo.colorSpace = THREE.SRGBColorSpace
 VideoTextureTwo.flipY = false
 
+//TV Video
+const videoElementThree = document.createElement("video")
+videoElementThree.src = "videos/TV.mp4"
+videoElementThree.loop = true
+videoElementThree.muted = true
+videoElementThree.playsInline = true
+videoElementThree.autoplay = true
+videoElementThree.play()
+
+const VideoTextureThree = new THREE.VideoTexture(videoElementThree)
+videoElementThree.colorSpace = THREE.SRGBColorSpace
+VideoTextureThree.rotation = Math.PI / 2
+VideoTextureThree.center.set(0.5, 0.5)
+videoElementThree.flipY = false
+
 window.addEventListener("mousemove", (e) =>{
     let touchHappened = false
     pointer.x = ( e.clientX / window.innerWidth ) * 2 - 1
@@ -256,6 +271,10 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
             else if(child.name.includes("Monitor")){
                 child.material = new THREE.MeshBasicMaterial({
                     map: VideoTextureTwo
+                })
+            }  else if(child.name.includes("TV")){
+                child.material = new THREE.MeshBasicMaterial({
+                    map: VideoTextureThree
                 })
             }
             Object.keys(textureMap).forEach((key) =>{
