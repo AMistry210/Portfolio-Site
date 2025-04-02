@@ -227,7 +227,6 @@ function handleRaycasterInteraction(){
                 newWindow.rel = "noopener noreferrer"
             }
         })
-
         if(object.name.includes("Projects_Button")) {
            showModal(modals.project)
         } 
@@ -243,7 +242,7 @@ function handleRaycasterInteraction(){
 
 window.addEventListener("click", handleRaycasterInteraction)
 
-let chairTop;
+let plank1, plank2, projectsBtn, aboutBtn, contactBtn, chairTop
 
 loader.load("/models/Room_Portfolio.glb", (glb) =>{
     glb.scene.traverse((child) =>{
@@ -277,6 +276,28 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
                     map: VideoTextureThree
                 })
             }
+
+            if(child.name.includes("Hanging_Plank_1")){
+                plank1 = child
+                child.scale.set(0, 1, 0)
+            }
+            if(child.name.includes("Hanging_Plank_2")){
+                plank2 = child
+                child.scale.set(0, 0, 0)
+            }
+            if(child.name.includes("Projects_Button")){
+                projectsBtn = child
+                child.scale.set(0, 0, 0)
+            }
+            if(child.name.includes("About_Button")){
+                aboutBtn = child
+                child.scale.set(0, 0, 0)
+            }
+            if(child.name.includes("Contact_Button")){
+                contactBtn = child
+                child.scale.set(0, 0, 0)
+            }
+
             Object.keys(textureMap).forEach((key) =>{
                 if(child.name.includes(key)){
                     const material = new THREE.MeshBasicMaterial({
@@ -316,7 +337,50 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
         }
     })
     scene.add(glb.scene)
+    playIntroAnimation()
 })
+
+function playIntroAnimation(){
+    const time1 = gsap.timeline({
+        defaults: {
+            duration: 0.8,
+            ease: "back.out(1.8)"
+        }
+    })
+    time1.timeScale(0.6)
+    time1.to(plank1.scale, {
+        x:1,
+        z:1
+    })
+    .to(plank2.scale, {
+        x:1,
+        y:1,
+        z:1
+    },
+    "-= 0.5"
+    )
+    .to(projectsBtn.scale, {
+        x:1,
+        y:1,
+        z:1
+    },
+    "-= 0.6"
+    )
+    .to(aboutBtn.scale, {
+        x:1,
+        y:1,
+        z:1
+    },
+    "-= 0.6"
+    )
+    .to(contactBtn.scale, {
+        x:1,
+        y:1,
+        z:1
+    },
+    "-= 0.6"
+    )
+}
 
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera( 35, sizes.width / sizes.height, 0.1, 1000 )
