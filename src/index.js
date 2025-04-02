@@ -114,7 +114,7 @@ const environmentMap = new THREE.CubeTextureLoader()
 
 const textureMap = {
     First: {
-        textures: "/textures/TextureSetOne.webp"
+        textures: "/textures/TextureSetOneV1.webp"
     },
     Second: {
         textures: "/textures/TextureSetTwo.webp"
@@ -228,6 +228,8 @@ function handleRaycasterInteraction(){
 
 window.addEventListener("click", handleRaycasterInteraction)
 
+let chairTop;
+
 loader.load("/models/Room_Portfolio.glb", (glb) =>{
     glb.scene.traverse((child) =>{
         if(child.isMesh){
@@ -241,6 +243,10 @@ loader.load("/models/Room_Portfolio.glb", (glb) =>{
             }
             if(child.name.includes("Hover_2")) {
                 raycasterObjects.push(child);
+            }
+            if (child.name.includes("Chair_Top")) {
+                chairTop = child;
+                child.userData.initialRotation = new THREE.Euler().copy(child.rotation);
             }
             if(child.name.includes("Screen")) {
                 child.material = new THREE.MeshBasicMaterial({
@@ -368,7 +374,7 @@ function playHoverAnimation(object, isHovering){
     }
 }
 
-const render = () =>{
+const render = (timestamp) =>{
     controls.update()
   
     // console.log(camera.position)
@@ -383,6 +389,19 @@ const render = () =>{
     xAxisFans.forEach(fan=>{
         fan.rotation.x += 0.01
     })
+
+    // Animate Chair
+    if (chairTop) {
+        const time = timestamp * 0.001;
+        const baseAmplitude = Math.PI / 8;
+    
+        const rotationOffset =
+          baseAmplitude *
+          Math.sin(time * 0.5) *
+          (1 - Math.abs(Math.sin(time * 0.5)) * 0.3);
+    
+        chairTop.rotation.y = chairTop.userData.initialRotation.y + rotationOffset;
+      }
 
     // Raycaster
 	raycaster.setFromCamera( pointer, camera );
