@@ -31,3 +31,45 @@
     display: none;
     background-color: black;
 }
+  
+  .loading-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 5em;
+    letter-spacing: .085em;
+    margin: 4.5rem 0 1rem;
+  }
+
+  .loading-title {
+    font-family: 'Fjalla One';
+  }
+  
+  .loading {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 10px;
+    left: 0;
+    background: #41576B;
+    transition: .75s;
+  }
+  
+  .loading-title {
+    color: #D0D2D2;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .loading-progress {
+    height: 11px;
+    background: #41576B;
+    top: -11px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    transition: .35s;
+  }
+  
