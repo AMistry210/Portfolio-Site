@@ -1,9 +1,9 @@
 import "./index.scss"
 import * as THREE from 'three'
+import gsap from "gsap";
 import { OrbitControls } from './utils/OrbitControls.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import gsap from "gsap";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes ={

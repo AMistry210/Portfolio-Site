@@ -17,7 +17,7 @@ export default {
     },
     plugins:
     [
-        restart({ restart: [ '../static/**', ] }), // Restart server on static file change
-        glsl()
+        glsl(),
+        restart({ restart: [ '../static/**', ] }) // Restart server on static file change
     ],
 }
