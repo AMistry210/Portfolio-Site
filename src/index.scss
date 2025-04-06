@@ -123,6 +123,15 @@ ul {
     background-color: #41576B;
     border: 8px solid #D0D2D2;
     border-radius: 25px;
+
+    @include media.media("<=tablet") {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: auto;
+      max-height: none;
+    }
 }
 
 .modal-wrapper{
